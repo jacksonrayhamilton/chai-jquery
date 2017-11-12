@@ -2,7 +2,9 @@
   // Module systems magic dance.
   if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
     // NodeJS
-    module.exports = chaiJquery;
+    module.exports = function (chai, utils) {
+      return chaiJquery(chai, utils, require('jquery'));
+    };
   } else if (typeof define === "function" && define.amd) {
     // AMD
     define(['jquery'], function ($) {
@@ -19,7 +21,6 @@
 }(function (chai, utils, $) {
   var inspect = utils.inspect,
       flag = utils.flag;
-  $ = $ || jQuery;
 
   var setPrototypeOf = '__proto__' in Object ?
     function (object, prototype) {
